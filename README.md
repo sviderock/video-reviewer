@@ -1,4 +1,4 @@
-# whatsapp-scraper
+# video-reviewer
 
 To install dependencies:
 
