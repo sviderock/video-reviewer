@@ -1,0 +1,40 @@
+{
+  "name": "whatsapp-scraper",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "dev": "vinxi dev",
+    "build": "vinxi build",
+    "start": "vinxi start"
+  },
+  "devDependencies": {
+    "@tanstack/eslint-plugin-router": "^1.99.0",
+    "@types/bun": "latest",
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
+    "babel-plugin-react-compiler": "^19.0.0-beta-e552027-20250112",
+    "eslint-plugin-react-compiler": "^19.0.0-beta-e552027-20250112",
+    "prettier": "^3.4.2",
+    "prettier-plugin-tailwindcss": "^0.6.11",
+    "tailwindcss": "3",
+    "vite-tsconfig-paths": "^5.1.4"
+  },
+  "peerDependencies": {
+    "typescript": "^5.7.2"
+  },
+  "dependencies": {
+    "@radix-ui/react-slot": "^1.1.1",
+    "@tailwindcss/postcss": "^4.0.3",
+    "@tailwindcss/vite": "^4.0.3",
+    "@tanstack/react-router": "^1.99.0",
+    "@tanstack/start": "^1.99.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.474.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tailwind-merge": "^3.0.1",
+    "tailwindcss-animate": "^1.0.7",
+    "vinxi": "^0.5.1"
+  }
+}
