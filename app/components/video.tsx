@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 import { ChevronDown, ChevronUp, Clock, Pause, Play } from "lucide-react";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
