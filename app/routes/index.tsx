@@ -120,7 +120,7 @@ function Home() {
             key={section.date}
             date={section.date}
             videos={section.videos}
-            defaultExpanded={index < 2}
+            defaultExpanded={index < 3}
           />
         ))}
       </main>
