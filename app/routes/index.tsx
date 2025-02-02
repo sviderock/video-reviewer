@@ -1,10 +1,8 @@
-// app/routes/index.tsx
-import * as fs from "node:fs";
-import { createFileRoute, useRouter } from "@tanstack/react-router";
-import { createServerFn } from "@tanstack/start";
 import { Button } from "@/components/ui/button";
-import { DashboardHeader } from "@/components/dashboard-header";
-import { VideoSection } from "@/components/video-section";
+import { Input } from "@/components/ui/input";
+import { VideoSection } from "@/components/video";
+import { createFileRoute, useLoaderData } from "@tanstack/react-router";
+import { Bell } from "lucide-react";
 
 // Helper function to format date
 function formatDate(daysAgo: number): string {
@@ -29,7 +27,7 @@ function getVideosData() {
       title: "Jellyfish",
       duration: "1:00",
       watched: true,
-      thumbnail: "https://test-videos.co.uk/user/pages/images/jellyfish.jpg",
+      thumbnail: "https://peach.blender.org/wp-content/uploads/bbb-splash.png",
       videoUrl: "https://test-videos.co.uk/vids/jellyfish/mp4/h264/720/Jellyfish_720_10s_1MB.mp4"
     },
     {
@@ -37,7 +35,7 @@ function getVideosData() {
       title: "Sintel Trailer",
       duration: "0:52",
       watched: false,
-      thumbnail: "https://durian.blender.org/wp-content/uploads/2010/05/sintel_trailer_480p.jpg",
+      thumbnail: "https://peach.blender.org/wp-content/uploads/bbb-splash.png",
       videoUrl: "https://test-videos.co.uk/vids/sintel/mp4/h264/720/Sintel_720_10s_1MB.mp4"
     },
     {
@@ -45,8 +43,7 @@ function getVideosData() {
       title: "Caminandes: Llama Drama",
       duration: "1:30",
       watched: true,
-      thumbnail:
-        "https://sjc.microlink.io/msEWfrZ-yDVBaaElgcjq8KCmVheH1qlBAJ9AUXxmtVdlOHUD1_6wPeFPY4-UY8JG7vyO-qk5DmDidem3DrVLjg.jpeg",
+      thumbnail: "https://peach.blender.org/wp-content/uploads/bbb-splash.png",
       videoUrl: "https://test-videos.co.uk/vids/caminandes/mp4/h264/720/Caminandes_720_10s_1MB.mp4"
     }
   ];
@@ -59,7 +56,7 @@ function getVideosData() {
         .toString()
         .padStart(2, "0")}`,
       watched: Math.random() > 0.5,
-      thumbnail: "/placeholder.svg",
+      thumbnail: "https://peach.blender.org/wp-content/uploads/bbb-splash.png",
       videoUrl: "#"
     }));
 
@@ -83,12 +80,13 @@ function getVideosData() {
   return sections;
 }
 export const Route = createFileRoute("/")({
-  component: Home
+  component: Home,
+  loader: () => getVideosData()
 });
 
 function Home() {
   console.log("Fetching video data...");
-  const videosData = getVideosData();
+  const videosData = Route.useLoaderData();
   console.log("Video data fetched:", videosData);
 
   const totalVideos = videosData.reduce((sum, section) => sum + section.videos.length, 0);
@@ -99,7 +97,23 @@ function Home() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <DashboardHeader totalVideos={totalVideos} unwatchedVideos={unwatchedVideos} />
+      <header className="flex flex-col items-center justify-between gap-4 rounded-lg border bg-card p-6 shadow-sm sm:flex-row">
+        <div>
+          <h1 className="text-2xl font-bold text-foreground">Video Review Dashboard</h1>
+          <p className="text-muted-foreground">Track your daily video reviews</p>
+          <p className="text-sm text-muted-foreground">
+            Total videos: {totalVideos} | Unwatched: {unwatchedVideos}
+          </p>
+        </div>
+        <div className="flex items-center gap-4">
+          <Input type="search" placeholder="Search videos..." className="w-full sm:w-auto" />
+          <Button variant="outline" size="icon" className="hover:bg-secondary">
+            <Bell className="h-4 w-4" />
+            <span className="sr-only">Notifications</span>
+          </Button>
+        </div>
+      </header>
+
       <main className="mt-8">
         {videosData.map((section, index) => (
           <VideoSection
